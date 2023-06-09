@@ -50,7 +50,7 @@ module.exports = {
   //  type: "unique",
   //  name: "unique_name_ownerId_constraint",
   // });
-
+  //live site
   await queryInterface.addConstraint(`${process.env.SCHEMA}.Albums`, {
    fields: ["name", "ownerId"],
    type: "unique",

@@ -67,6 +67,7 @@ const retrievePrivateFile = (key) => {
    Key: key,
   });
  }
+ console.log("abababa   fileUrl: ", fileUrl);
  return fileUrl || key;
 };
 

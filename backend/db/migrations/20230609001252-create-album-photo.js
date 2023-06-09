@@ -43,13 +43,13 @@ module.exports = {
   );
 
   // Add a unique constraint to make photoId and albumId a unique pair
-  //   //local
-  //   await queryInterface.addConstraint("AlbumPhotos", {
-  //    fields: ["photoId", "albumId"],
-  //    type: "unique",
-  //    name: "unique_photo_album_pair",
-  //   });
-
+  // //local
+  // await queryInterface.addConstraint("AlbumPhotos", {
+  //  fields: ["photoId", "albumId"],
+  //  type: "unique",
+  //  name: "unique_photo_album_pair",
+  // });
+  //live site
   await queryInterface.addConstraint(`${process.env.SCHEMA}.AlbumPhotos`, {
    fields: ["photoId", "albumId"],
    type: "unique",
