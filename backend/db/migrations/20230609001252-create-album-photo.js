@@ -43,7 +43,14 @@ module.exports = {
   );
 
   // Add a unique constraint to make photoId and albumId a unique pair
-  await queryInterface.addConstraint("AlbumPhotos", {
+  //   //local
+  //   await queryInterface.addConstraint("AlbumPhotos", {
+  //    fields: ["photoId", "albumId"],
+  //    type: "unique",
+  //    name: "unique_photo_album_pair",
+  //   });
+
+  await queryInterface.addConstraint(`${process.env.SCHEMA}.AlbumPhotos`, {
    fields: ["photoId", "albumId"],
    type: "unique",
    name: "unique_photo_album_pair",
@@ -51,10 +58,10 @@ module.exports = {
  },
  async down(queryInterface, Sequelize) {
   options.tableName = "AlbumPhotos";
-  await queryInterface.removeConstraint(
-   "AlbumPhotos",
-   "unique_photo_album_pair"
-  );
+  // await queryInterface.removeConstraint(
+  //  "AlbumPhotos",
+  //  "unique_photo_album_pair"
+  // );
   await queryInterface.dropTable(options);
  },
 };
