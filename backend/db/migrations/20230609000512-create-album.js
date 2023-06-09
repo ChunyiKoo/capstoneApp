@@ -52,6 +52,10 @@ module.exports = {
  },
  async down(queryInterface, Sequelize) {
   options.tableName = "Albums";
+  await queryInterface.removeConstraint(
+   "Albums",
+   "unique_name_ownerId_constraint"
+  );
   await queryInterface.dropTable(options);
  },
 };
