@@ -1,3 +1,5 @@
+//migrations/20230609001252-create-album-photo.js
+
 "use strict";
 /** @type {import('sequelize-cli').Migration} */
 let options = {};
@@ -50,11 +52,18 @@ module.exports = {
   //  name: "unique_photo_album_pair",
   // });
   //live site
-  await queryInterface.addConstraint(`${process.env.SCHEMA}.AlbumPhotos`, {
-   fields: ["photoId", "albumId"],
-   type: "unique",
-   name: "unique_photo_album_pair",
-  });
+
+  options.tableName = "AlbumPhotos";
+  options.fields = ["photoId", "albumId"];
+  options.type = "unique";
+  options.name = "unique_photo_album_pair";
+
+  await queryInterface.addConstraint(options);
+  // await queryInterface.addConstraint(`${process.env.SCHEMA}.AlbumPhotos`, {
+  //  fields: ["photoId", "albumId"],
+  //  type: "unique",
+  //  name: "unique_photo_album_pair",
+  // });
  },
  async down(queryInterface, Sequelize) {
   options.tableName = "AlbumPhotos";
