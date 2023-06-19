@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 //import { useParams } from "react-router-dom";
-import { ThunkLoadCurrentPhotosButThisAlbum } from "../store/photos";
-import { ThunkLoadAllCurrentAlbums } from "../store/albums";
+import {
+ ThunkLoadCurrentPhotosButThisAlbum,
+ clearCurrentPhotosButThisAlbum,
+} from "../store/photos";
+import {
+ ThunkLoadAllCurrentAlbums,
+ clearAllCurrentAlbums,
+} from "../store/albums";
 import PhotoList from "./PhotoList";
 import AlbumPhotoList from "./AlbumPhotoList";
 import {
@@ -32,7 +38,10 @@ function AlbumEdit({ user, albumId }) {
  console.log("AlbumDetail album, album_id: ", album, album_id);
 
  useEffect(() => {
-  if (album_id) dispatch(ThunkLoadAllCurrentAlbums());
+  if (album_id) {
+   dispatch(ThunkLoadAllCurrentAlbums());
+   //return () => dispatch(clearAllCurrentAlbums());
+  }
  }, [dispatch, album_id, selectedPhotos, selectedAlbumPhotos]);
 
  //allcurrentButThisAlbum
@@ -44,23 +53,28 @@ function AlbumEdit({ user, albumId }) {
  console.log("AlbumEdit photos: ", photos);
 
  useEffect(() => {
-  if (album_id) dispatch(ThunkLoadCurrentPhotosButThisAlbum(album_id));
+  if (album_id) {
+   dispatch(ThunkLoadCurrentPhotosButThisAlbum(album_id));
+   //return () => dispatch(clearCurrentPhotosButThisAlbum());
+  }
  }, [dispatch, album_id, selectedPhotos, selectedAlbumPhotos]);
 
- const AddToAlbum = (e) => {
-  e.preventDefault();
+ const AddToAlbum = () => {
+  //e.preventDefault();
   const photoIds = { photoIds: Object.values(selectedPhotos) };
   console.log("function AddToAlbum album_id, photoIds: ", album_id, photoIds);
-  ThunkAddMultiAlbumPhotos({ album_id, photoIds });
-  setSelectedPhotos({});
+  ThunkAddMultiAlbumPhotos({ album_id, photoIds }).then(() => {
+   setSelectedPhotos({});
+  });
  };
 
- const RemoveFromAlbum = (e) => {
-  e.preventDefault();
+ const RemoveFromAlbum = () => {
+  //e.preventDefault();
   const albumPhotoIds = { albumPhotoIds: Object.values(selectedAlbumPhotos) };
   console.log("function RemoveFromAlbum albumPhotoIds: ", albumPhotoIds);
-  ThunkDeleteMultiAlbumPhotos(albumPhotoIds);
-  setSelectedAlbumPhotos({});
+  ThunkDeleteMultiAlbumPhotos(albumPhotoIds).then(() => {
+   setSelectedAlbumPhotos({});
+  });
  };
 
  //  if (photos === undefined) return <div>Loading</div>;

@@ -3,6 +3,9 @@ import { csrfFetch } from "./csrf";
 const LOAD_CURRENT_PHOTOS_BUT_THIS_ALBUM =
  "photos/LOAD_CURRENT_PHOTOS_BUT_THIS_ALBUM";
 //
+const CLEAR_CURRENT_PHOTOS_BUT_THIS_ALBUM =
+ "photos/CLEAR_CURRENT_PHOTOS_BUT_THIS_ALBUM";
+//
 const LOAD_ALL_CURRENT_PHOTOS = "photos/LOAD_ALL_CURRENT_PHOTOS";
 //
 const LOAD_ALL_PHOTOS = "photos/LOAD_ALL_PHOTOS";
@@ -15,6 +18,12 @@ export const loadCurrentPhotosButThisAlbum = (photos) => {
  return {
   type: LOAD_CURRENT_PHOTOS_BUT_THIS_ALBUM,
   photos,
+ };
+};
+
+export const clearCurrentPhotosButThisAlbum = () => {
+ return {
+  type: CLEAR_CURRENT_PHOTOS_BUT_THIS_ALBUM,
  };
 };
 
@@ -137,6 +146,14 @@ const photosReducer = (state = initialState, action) => {
    action.photos.forEach((photo) => {
     newState.allcurrentButThisAlbum[photo.id] = photo;
    });
+   return newState;
+  case CLEAR_CURRENT_PHOTOS_BUT_THIS_ALBUM:
+   newState = {
+    // ...state,
+    allPhotos: { ...state.allPhotos },
+    allcurrent: { ...state.allcurrent },
+    allcurrentButThisAlbum: {},
+   };
    return newState;
   case LOAD_ALL_CURRENT_PHOTOS:
    newState = {

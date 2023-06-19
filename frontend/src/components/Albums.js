@@ -1,7 +1,10 @@
 import React, { useEffect } from "react";
 import AlbumList from "./AlbumList";
 import { useDispatch, useSelector } from "react-redux";
-import { ThunkLoadAllCurrentAlbums } from "../store/albums";
+import {
+ ThunkLoadAllCurrentAlbums,
+ clearAllCurrentAlbums,
+} from "../store/albums";
 import AddAlbumFormModal from "./AddAlbumFormModal";
 import OpenModalButton from "./OpenModalButton";
 import MidNav from "./MidNav";
@@ -22,7 +25,10 @@ function Albums({ user }) {
  console.log("---------user", user);
  useEffect(() => {
   console.log("step 3");
-  if (user) dispatch(ThunkLoadAllCurrentAlbums());
+  if (user) {
+   dispatch(ThunkLoadAllCurrentAlbums());
+   //return () => dispatch(clearAllCurrentAlbums());
+  }
  }, [dispatch, user]);
  console.log("step 4");
  if (!albums) return null;
@@ -59,7 +65,7 @@ function Albums({ user }) {
     </div>
    </div>
    <div className="photo-current-photolist-container">
-    {!!albums && <AlbumList albums={albums} user={user} />}
+    {albums?.length !== 0 && <AlbumList albums={albums} user={user} />}
     {albums.length === 0 && (
      <div className="photos-add-more-photo">Please add Albums!</div>
     )}

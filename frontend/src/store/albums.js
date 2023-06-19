@@ -1,6 +1,9 @@
 import { csrfFetch } from "./csrf";
 //
 
+//CLEAR current user's albums
+const CLEAR_ALL_CURRENT_ALBUMS = "albums/CLEAR_ALL_CURRENT_ALBUMS";
+
 //GET current user's albums
 const LOAD_ALL_CURRENT_ALBUMS = "albums/LOAD_ALL_CURRENT_ALBUMS";
 
@@ -9,6 +12,12 @@ const ADD_A_ALBUM = "albums/ADD_A_ALBUM";
 
 //Delete a album
 const DELETE_A_ALBUM = "albums/DELETE_A_ALBUM";
+
+export const clearAllCurrentAlbums = () => {
+ return {
+  type: CLEAR_ALL_CURRENT_ALBUMS,
+ };
+};
 
 export const loadAllCurrentAlbums = (albums) => {
  return {
@@ -78,6 +87,12 @@ const albumReducer = (state = initialState, action) => {
    action.albums.forEach((album) => {
     newState.allCurrent[album.id] = album;
    });
+   return newState;
+
+  case CLEAR_ALL_CURRENT_ALBUMS:
+   newState = {
+    allCurrent: {},
+   };
    return newState;
 
   case ADD_A_ALBUM:
