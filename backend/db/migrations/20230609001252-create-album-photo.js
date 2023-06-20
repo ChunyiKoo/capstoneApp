@@ -3,6 +3,7 @@
 "use strict";
 /** @type {import('sequelize-cli').Migration} */
 let options = {};
+options.tableName = "AlbumPhotos";
 if (process.env.NODE_ENV === "production") {
  options.schema = process.env.SCHEMA; // define your schema in options object
 }
@@ -10,7 +11,8 @@ if (process.env.NODE_ENV === "production") {
 module.exports = {
  async up(queryInterface, Sequelize) {
   await queryInterface.createTable(
-   "AlbumPhotos",
+   options,
+   //"AlbumPhotos",
    {
     id: {
      allowNull: false,
@@ -63,7 +65,7 @@ module.exports = {
   //*2* both local and live site
 
   await queryInterface.addConstraint(
-   "AlbumPhotos",
+   options,
    {
     fields: ["photoId", "albumId"],
     type: "unique",
