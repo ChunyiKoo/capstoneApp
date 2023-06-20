@@ -52,22 +52,25 @@ module.exports = {
   //  name: "unique_photo_album_pair",
   // });
 
-  //*1* both local and live site
-  options.tableName = "AlbumPhotos";
-  options.fields = ["photoId", "albumId"];
-  options.type = "unique";
-  options.name = "unique_photo_album_pair";
+  ////*1* both local and live site
+  // options.tableName = "AlbumPhotos";
+  // options.fields = ["photoId", "albumId"];
+  // options.type = "unique";
+  // options.name = "unique_photo_album_pair";
 
-  await queryInterface.addConstraint(options);
+  // await queryInterface.addConstraint(options);
 
-  ////*2* both local and live site
+  //*2* both local and live site
 
-  // await queryInterface.addConstraint("AlbumPhotos", {
-  //  fields: ["photoId", "albumId"],
-  //  type: "unique",
-  //  name: "unique_photo_album_pair",
-  // }, options);
-  //},
+  await queryInterface.addConstraint(
+   "AlbumPhotos",
+   {
+    fields: ["photoId", "albumId"],
+    type: "unique",
+    name: "unique_photo_album_pair",
+   },
+   options
+  );
  },
 
  async down(queryInterface, Sequelize) {

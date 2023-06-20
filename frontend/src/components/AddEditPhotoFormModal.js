@@ -114,7 +114,7 @@ function AddEditPhotoFormModal({ formType, photo }) {
      /> */}
      <input type="file" accept=".png,.jpg,.jpeg" onChange={updateFile}></input>
     </label>
-    {errors.url && <p className="error-message">{errors.url}</p>}
+    {/* {errors.url && <p className="error-message">{errors.url}</p>} */}
 
     <button className="submit-btn" type="submit">
      {formType === "Add" ? "Add" : "Update"}

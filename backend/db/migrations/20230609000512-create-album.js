@@ -44,13 +44,24 @@ module.exports = {
    options
   );
 
-  options.tableName = "Albums";
-  options.fields = ["name", "ownerId"];
-  options.type = "unique";
-  options.name = "unique_name_ownerId_constraint";
+  // options.tableName = "Albums";
+  // options.fields = ["name", "ownerId"];
+  // options.type = "unique";
+  // options.name = "unique_name_ownerId_constraint";
+  //   await queryInterface.addConstraint(options);
+  //  },
 
-  await queryInterface.addConstraint(options);
+  await queryInterface.addConstraint(
+   "Albums",
+   {
+    fields: ["name", "ownerId"],
+    type: "unique",
+    name: "unique_name_ownerId_constraint",
+   },
+   options
+  );
  },
+
  async down(queryInterface, Sequelize) {
   options.tableName = "Albums";
   await queryInterface.dropTable(options);
