@@ -54,7 +54,7 @@ module.exports = {
   //  },
 
   await queryInterface.addConstraint(
-   "Albums",
+   options,
    {
     fields: ["name", "ownerId"],
     type: "unique",
